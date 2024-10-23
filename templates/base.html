@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Image Gallery{% endblock %}</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .image-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .image-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-overlay {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .image-card:hover .image-overlay {
+            opacity: 1;
+        }
+
+        .lazy-image {
+            transition: opacity 0.3s ease;
+        }
+
+        .lazy-image.loaded {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm fixed w-full top-0 z-50">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+                <a href="{{ url_for('index') }}" class="text-xl font-semibold text-gray-800">
+                    Image Gallery
+                </a>
+                <div class="flex items-center space-x-4">
+                    {% if current_user.is_authenticated %}
+                    {% if current_user.is_admin %}
+                    <span class="px-2 py-1 bg-red-100 text-red-800 rounded-md text-sm">Admin</span>
+                    {% endif %}
+                    <span class="text-gray-600">{{ current_user.username }}</span>
+                    <a href="{{ url_for('logout') }}"
+                        class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors">
+                        Logout
+                    </a>
+                    {% else %}
+                    <a href="{{ url_for('login') }}"
+                        class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors">
+                        Login
+                    </a>
+                    <a href="{{ url_for('register') }}"
+                        class="px-4 py-2 bg-blue-500 text-white hover:bg-blue-600 rounded-md transition-colors">
+                        Register
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash Messages -->
+    <div class="container mx-auto px-4 pt-20">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div
+            class="mb-4 p-4 rounded-md {% if category == 'error' %}bg-red-100 text-red-700{% else %}bg-green-100 text-green-700{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t mt-auto">
+        <div class="container mx-auto px-4 py-6 text-center text-gray-600">
+            © {{ current_year }} Image Gallery. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Lazy Loading Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let lazyImages = document.querySelectorAll('img[loading="lazy"]');
+
+            lazyImages.forEach(img => {
+                img.classList.add('opacity-0');
+                img.onload = function () {
+                    img.classList.remove('opacity-0');
+                    img.classList.add('opacity-100');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

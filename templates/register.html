@@ -1,0 +1,92 @@
+<!-- register.html -->
+{% extends "base.html" %}
+
+{% block title %}Register - Image Gallery{% endblock %}
+
+{% block content %}
+<div class="flex justify-center items-center min-h-screen bg-gray-100">
+    <div class="w-full max-w-md bg-white p-8 rounded-lg shadow-md">
+        <h1 class="text-2xl font-bold mb-6 text-center">Register New Admin Account</h1>
+
+        <form method="POST" class="space-y-6">
+            {{ form.hidden_tag() }}
+
+            <!-- Username Field -->
+            <div class="form-group">
+                <label for="username" class="block text-gray-700 font-semibold mb-2">{{ form.username.label }}</label>
+                {{ form.username(class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none
+                focus:ring-2 focus:ring-blue-500") }}
+                {% if form.username.errors %}
+                {% for error in form.username.errors %}
+                <span class="text-red-500 text-sm">{{ error }}</span>
+                {% endfor %}
+                {% endif %}
+                <p class="text-gray-500 text-sm mt-1">Username must be 3-20 characters long and contain only letters,
+                    numbers, and underscores.</p>
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-group">
+                <label for="password" class="block text-gray-700 font-semibold mb-2">{{ form.password.label }}</label>
+                {{ form.password(class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none
+                focus:ring-2 focus:ring-blue-500") }}
+                {% if form.password.errors %}
+                {% for error in form.password.errors %}
+                <span class="text-red-500 text-sm">{{ error }}</span>
+                {% endfor %}
+                {% endif %}
+                <!--
+                <p class="text-gray-500 text-sm mt-1">
+                    Password must contain:
+                <ul class="list-disc pl-5">
+                    <li>At least 8 characters</li>
+                    <li>One uppercase letter</li>
+                    <li>One lowercase letter</li>
+                    <li>One number</li>
+                    <li>One special character (!@#$%^&*())</li>
+                </ul>
+                </p>
+                -->
+            </div>
+
+            <!-- Confirm Password Field -->
+            <div class="form-group">
+                <label for="confirm_password" class="block text-gray-700 font-semibold mb-2">{{
+                    form.confirm_password.label }}</label>
+                {{ form.confirm_password(class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none
+                focus:ring-2 focus:ring-blue-500") }}
+                {% if form.confirm_password.errors %}
+                {% for error in form.confirm_password.errors %}
+                <span class="text-red-500 text-sm">{{ error }}</span>
+                {% endfor %}
+                {% endif %}
+            </div>
+
+            <!-- Registration Code Field -->
+            <div class="form-group">
+                <label for="registration_code" class="block text-gray-700 font-semibold mb-2">{{
+                    form.registration_code.label }}</label>
+                {{ form.registration_code(class="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none
+                focus:ring-2 focus:ring-blue-500") }}
+                {% if form.registration_code.errors %}
+                {% for error in form.registration_code.errors %}
+                <span class="text-red-500 text-sm">{{ error }}</span>
+                {% endfor %}
+                {% endif %}
+                <p class="text-gray-500 text-sm mt-1">Please enter the registration code provided by the system
+                    administrator.</p>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="form-actions">
+                <button type="submit"
+                    class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition">
+                    Register
+                </button>
+                <a href="{{ url_for('login') }}" class="block text-center mt-4 text-blue-500 hover:underline">Back to
+                    Login</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

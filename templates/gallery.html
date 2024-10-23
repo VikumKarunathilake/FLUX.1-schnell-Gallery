@@ -1,0 +1,75 @@
+<!-- gallery.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="gallery-container px-4 py-8">
+    <!-- Gallery Header -->
+    <h1 class="text-4xl font-bold text-center mb-10">Image Gallery</h1>
+
+    {% if images %}
+    <!-- Image Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {% for image in images %}
+        <div class="relative group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+            <!-- Image Card with Aspect Ratio -->
+            <a href="{{ url_for('image_detail', image_id=image.id) }}" class="block">
+                <div class="aspect-w-4 aspect-h-3">
+                    <img src="{{ image.imgbb_display_url }}" alt="{{ image.generation_prompt }}"
+                        class="w-full h-full object-cover rounded-lg transition-opacity duration-300 group-hover:opacity-90"
+                        loading="lazy">
+                </div>
+
+                <!-- Image Overlay on Hover -->
+                <div
+                    class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-300 flex items-center justify-center">
+                    <span
+                        class="text-white bg-black bg-opacity-75 px-4 py-2 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        View Details
+                    </span>
+                </div>
+            </a>
+
+            <!-- Image Metadata -->
+            <div class="p-4">
+                <h3 class="text-lg font-semibold text-gray-900 line-clamp-2">
+                    {{ image.generation_prompt[:100] }}{% if image.generation_prompt|length > 100 %}...{% endif %}
+                </h3>
+                <!-- Image Metadata Info -->
+                <div class="flex flex-wrap items-center gap-2 mt-2 text-sm">
+                    <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-md">{{ image.generation_width }}x{{
+                        image.generation_height }}</span>
+                    <span class="px-3 py-1 bg-blue-50 text-blue-600 rounded-md">Steps: {{ image.generation_steps
+                        }}</span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if total_pages > 1 %}
+    <div class="flex justify-center items-center mt-10 space-x-4">
+        {% if page > 1 %}
+        <a href="{{ url_for('index', page=page-1) }}"
+            class="px-4 py-2 bg-white border border-gray-300 rounded-md hover:bg-gray-100 transition-colors">
+            Previous
+        </a>
+        {% endif %}
+
+        <span class="text-gray-600">Page {{ page }} of {{ total_pages }}</span>
+
+        {% if page < total_pages %} <a href="{{ url_for('index', page=page+1) }}"
+            class="px-4 py-2 bg-white border border-gray-300 rounded-md hover:bg-gray-100 transition-colors">
+            Next
+            </a>
+            {% endif %}
+    </div>
+    {% endif %}
+
+    {% else %}
+    <div class="text-center text-gray-600 py-16">
+        No images found in the gallery.
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

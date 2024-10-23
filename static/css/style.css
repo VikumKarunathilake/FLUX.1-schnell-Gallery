@@ -1,0 +1,15 @@
+.nav-link {
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #FFD700; /* Change to your desired hover color */
+}
+
+footer {
+    transition: background-color 0.3s ease;
+}
+
+footer:hover {
+    background-color: #f8f9fa; /* Lighter color on hover */
+}

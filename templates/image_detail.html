@@ -1,0 +1,58 @@
+<!-- image_detail.html -->
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto p-6">
+    <div class="mb-4">
+        <a href="{{ url_for('index') }}" class="text-blue-500 hover:text-blue-700 font-semibold">← Back to Gallery</a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Image Display Section -->
+        <div class="image-display">
+            <img src="{{ image.imgbb_display_url }}" alt="{{ image.generation_prompt }}"
+                class="w-full h-auto rounded-lg shadow-lg">
+        </div>
+
+        <!-- Generation Details Section -->
+        <div class="image-info bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-bold mb-4">Generation Details</h2>
+
+            <!-- Prompt -->
+            <div class="info-item mb-4">
+                <h3 class="font-semibold">Prompt</h3>
+                <p class="text-sm text-gray-600">{{ image.generation_prompt }}</p>
+            </div>
+
+            <!-- Metadata - Guidance, Steps, Sampler, Seed -->
+            <div class="bg-gray-100 p-4 rounded-md shadow-inner text-sm">
+                <div class="flex flex-wrap items-center gap-4 mb-2">
+                    <div class="metadata-item">
+                        <h3 class="font-semibold">Steps:</h3>
+                        <p>{{ image.generation_steps }}</p>
+                    </div>
+                    <div class="info-item mt-4">
+                        <h3 class="font-semibold">Dimensions</h3>
+                        <p>{{ image.generation_width }} x {{ image.generation_height }} px</p>
+                    </div>
+                    <div class="info-item mt-4">
+                        <h3 class="font-semibold">Generated On</h3>
+                        <p>{{ image.generation_timestamp.strftime('%Y-%m-%d %H:%M') }}</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Admin Delete Option -->
+            {% if is_admin %}
+            <div class="col-span-2 mt-6">
+                <form action="{{ url_for('delete_image', image_id=image.id) }}" method="POST"
+                    onsubmit="return confirm('Are you sure you want to delete this image?');">
+                    <button type="submit"
+                        class="w-full bg-red-600 text-white py-2 rounded hover:bg-red-700 transition">Delete
+                        Image</button>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
