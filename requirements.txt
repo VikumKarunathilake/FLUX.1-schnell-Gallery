@@ -1,4 +1,7 @@
-Flask==2.3.2
-flask-mysqldb==0.2.0
-mysqlclient==2.1.0
-mysql-connector-python==8.0.30
+Flask
+Flask-Login
+Flask-WTF
+mysqlclient
+mysql-connector-python
+python-dotenv
+Werkzeug
