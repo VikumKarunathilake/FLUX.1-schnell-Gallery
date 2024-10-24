@@ -62,11 +62,11 @@
         <nav class="mt-10 px-4 flex items-center justify-between sm:px-0">
             <div class="flex justify-center w-full space-x-2">
                 {% if page > 1 %}
-                <a href="{{ url_for('index', page=1) }}"
+                <a href="{{ url_for('gallery', page=1) }}"
                     class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
                     First
                 </a>
-                <a href="{{ url_for('index', page=page-1) }}"
+                <a href="{{ url_for('gallery', page=page-1) }}"
                     class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
                     Previous
                 </a>
@@ -77,11 +77,11 @@
                     Page {{ page }} of {{ total_pages }}
                 </span>
 
-                {% if page < total_pages %} <a href="{{ url_for('index', page=page+1) }}"
+                {% if page < total_pages %} <a href="{{ url_for('gallery', page=page+1) }}"
                     class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
                     Next
                     </a>
-                    <a href="{{ url_for('index', page=total_pages) }}"
+                    <a href="{{ url_for('gallery', page=total_pages) }}"
                         class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
                         Last
                     </a>
