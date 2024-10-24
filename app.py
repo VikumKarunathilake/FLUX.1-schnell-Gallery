@@ -112,7 +112,7 @@ def before_request():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('gallery'))
         
     if request.method == 'POST':
         username = request.form.get('username')
@@ -131,7 +131,7 @@ def login():
                 login_user(user_obj)
                 flash('Logged in successfully.', 'success')
                 next_page = request.args.get('next')
-                return redirect(next_page or url_for('index'))
+                return redirect(next_page or url_for('gallery'))
             else:
                 flash('Invalid username or password.', 'error')
                 
@@ -146,7 +146,7 @@ def login():
 def logout():
     logout_user()
     flash('You have been logged out.', 'info')
-    return redirect(url_for('login'))
+    return redirect(url_for('gallery'))
 
 @app.route('/')
 def index():
@@ -216,12 +216,12 @@ def image_detail(image_id):
                                  is_admin=current_user.is_authenticated and current_user.is_admin)
         
         flash('Image not found.', 'error')
-        return redirect(url_for('index'))
+        return redirect(url_for('gallery'))
         
     except Exception as e:
         app.logger.error(f'Image detail error: {str(e)}')
         flash('An error occurred while loading the image.', 'error')
-        return redirect(url_for('index'))
+        return redirect(url_for('gallery'))
 
 @app.route('/image/<int:image_id>/delete', methods=['POST'])
 @login_required
@@ -234,7 +234,7 @@ def delete_image(image_id):
         cur.execute("SELECT id FROM generated_images WHERE id = %s", (image_id,))
         if not cur.fetchone():
             flash('Image not found.', 'error')
-            return redirect(url_for('index'))
+            return redirect(url_for('gallery'))
         
         cur.execute("DELETE FROM generated_images WHERE id = %s", (image_id,))
         conn.commit()
@@ -242,12 +242,12 @@ def delete_image(image_id):
         conn.close()
         
         flash('Image successfully deleted.', 'success')
-        return redirect(url_for('index'))
+        return redirect(url_for('gallery'))
         
     except Exception as e:
         app.logger.error(f'Delete image error: {str(e)}')
         flash('An error occurred while deleting the image.', 'error')
-        return redirect(url_for('index'))
+        return redirect(url_for('gallery'))
 
 def validate_username(self, field):
     conn = get_db()
@@ -263,7 +263,7 @@ def validate_username(self, field):
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('gallery'))
     
     form = RegistrationForm()
     
