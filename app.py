@@ -150,6 +150,9 @@ def logout():
 
 @app.route('/')
 def index():
+    return render_template('index.html')
+@app.route('/gallery')
+def gallery():
     try:
         page = request.args.get('page', 1, type=int)
         per_page = 12

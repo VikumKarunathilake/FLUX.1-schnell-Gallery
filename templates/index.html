@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Image Platform</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Analytics -->
+    <script defer data-domain="flux-free.up.railway.app" src="https://plausible.io/js/script.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Custom Animations */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-up {
+            animation: fadeUp 0.6s ease-out forwards;
+        }
+
+        /* Touch ripple effect */
+        .touch-ripple {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .touch-ripple::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            transform: scale(0);
+            transition: transform 0.4s;
+            border-radius: inherit;
+        }
+
+        .touch-ripple:active::after {
+            transform: scale(2);
+        }
+
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Focus styles for accessibility */
+        :focus-visible {
+            outline: 2px solid #4F46E5;
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+
+<body class="bg-white">
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white/80 backdrop-blur-md z-50 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="#" class="text-xl font-semibold text-gray-900 hover:text-gray-600 transition-colors">
+                        AI Image Platform
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button onclick="trackEvent('theme_toggle')"
+                        class="p-2 rounded-full hover:bg-gray-100 transition-colors" aria-label="Toggle theme">
+                        <i data-lucide="sun" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative bg-cover bg-center h-screen" style="background-image: url('../static/image/image.webp');">
+        <div class="absolute inset-0 bg-black opacity-0"></div>
+        <div class="flex items-center justify-center h-full">
+            <div class="text-center text-white p-4">
+                <h1 class="text-5xl font-bold sm:text-6xl mb-4">Create & Explore AI Art</h1>
+                <p class="text-lg sm:text-xl mb-8">A minimalist platform for generating and discovering AI-powered
+                    artwork</p>
+                <a href="#start" onclick="trackEvent('get_started_click')"
+                    class="inline-block bg-gradient-to-r from-blue-500 to-blue-700 text-white font-semibold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105">
+                    Get Started
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="grid md:grid-cols-2 gap-8">
+            <!-- Generator Card -->
+            <div class="group fade-up" id="start" style="animation-delay: 0.2s">
+                <a href="https://flux-free.up.railway.app/" onclick="trackEvent('generator_click')"
+                    class="block h-full">
+                    <div
+                        class="relative h-full bg-gradient-to-br from-blue-50 to-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 touch-ripple">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-transparent rounded-2xl transition-opacity duration-300 opacity-0 group-hover:opacity-100">
+                        </div>
+
+                        <div class="relative">
+                            <div
+                                class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <i data-lucide="wand-2" class="w-6 h-6 text-blue-600"></i>
+                            </div>
+
+                            <h2 class="text-2xl font-semibold text-gray-900 mb-4">AI Image Generator</h2>
+                            <p class="text-gray-600 mb-6">Create unique AI-generated artwork with our intuitive
+                                interface</p>
+
+                            <div class="flex items-center text-blue-600 font-medium">
+                                Start Creating
+                                <i data-lucide="arrow-right"
+                                    class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Gallery Card -->
+            <div class="group fade-up " style="animation-delay: 0.4s">
+                <a href="/gallery" onclick="trackEvent('gallery_click')" class="block h-full">
+                    <div
+                        class="relative h-full bg-gradient-to-br from-purple-50 to-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-md transition-all duration-300 touch-ripple">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-purple-500/5 to-transparent rounded-2xl transition-opacity duration-300 opacity-0 group-hover:opacity-100">
+                        </div>
+
+                        <div class="relative">
+                            <div
+                                class="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <i data-lucide="gallery-horizontal-end" class="w-6 h-6 text-purple-600"></i>
+                            </div>
+
+                            <h2 class="text-2xl font-semibold text-gray-900 mb-4">Image Gallery</h2>
+                            <p class="text-gray-600 mb-6">Explore our curated collection of AI-generated artwork</p>
+
+                            <div class="flex items-center text-purple-600 font-medium">
+                                Browse Gallery
+                                <i data-lucide="arrow-right"
+                                    class="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 mt-12">
+        <div class="border-t border-gray-100 pt-8">
+            <p class="text-center text-sm text-gray-500">
+                © 2024 AI Image Platform. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Analytics tracking
+        function trackEvent(eventName) {
+            if (window.plausible) {
+                plausible(eventName);
+            }
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-up elements
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+        // Touch event handling
+        document.querySelectorAll('.touch-ripple').forEach(button => {
+            button.addEventListener('touchstart', function (e) {
+                const rect = button.getBoundingClientRect();
+                const ripple = button.querySelector('.ripple');
+                if (ripple) {
+                    ripple.style.left = `${e.touches[0].clientX - rect.left}px`;
+                    ripple.style.top = `${e.touches[0].clientY - rect.top}px`;
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

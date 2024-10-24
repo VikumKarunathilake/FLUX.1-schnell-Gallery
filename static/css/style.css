@@ -13,3 +13,30 @@ footer {
 footer:hover {
     background-color: #f8f9fa; /* Lighter color on hover */
 }
+.gallery {
+    column-count: 3;
+    column-gap: 20px;
+    padding: 60px 20px;
+}
+.gallery div {
+    break-inside: avoid;
+    margin-bottom: 20px;
+    position: relative;
+}
+@media (min-width: 1200px) {
+    .gallery {
+        column-count: 3;
+    }
+}
+
+@media (max-width: 1200px) and (min-width: 768px) {
+    .gallery {
+        column-count: 2;
+    }
+}
+
+@media (max-width: 768px) {
+    .gallery {
+        column-count: 1;
+    }
+}
