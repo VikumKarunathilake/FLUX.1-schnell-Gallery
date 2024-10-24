@@ -1,13 +1,10 @@
 # Use the official Python image as a base image
 FROM python:3.11-slim
 
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-
-# Install system dependencies
+# Install system dependencies including pkg-config and MySQL client libraries
 RUN apt-get update && apt-get install -y \
     default-libmysqlclient-dev \
+    pkg-config \
     gcc \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
